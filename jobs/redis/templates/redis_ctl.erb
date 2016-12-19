@@ -1,0 +1,35 @@
+#!/bin/bash -e
+NAME=instance1
+PORT=<%=p("redis.port")%>
+LOG_DIR=/var/vcap/store/redis/$NAME
+PIDFILE=/var/vcap/sys/run/redis/$NAME.pid
+DATA_DIR=/var/vcap/store/redis/$NAME
+RUN_DIR=/var/vcap/sys/run/redis
+CONFIG_PATH=$DATA_DIR/$NAME.conf
+JOB_DIR=/var/vcap/jobs/redis
+PACKAGE_DIR=/var/vcap/packages/redis
+
+source /var/vcap/packages/common/utils.sh
+
+case $1 in
+
+  start)
+
+    mkdir -p $LOG_DIR $RUN_DIR $DATA_DIR
+    chown vcap:vcap $LOG_DIR $RUN_DIR $DATA_DIR
+    sed "s/__NAME__/$NAME/g;s/__PORT__/$PORT/g" $JOB_DIR/config/redis.conf > $CONFIG_PATH
+    $JOB_DIR/bin/create-cluster >> $LOG_DIR/cluster.stdout.log 2>> $LOG_DIR/cluster.stderr.log  &
+    exec chpst -u vcap:vcap $PACKAGE_DIR/bin/redis-server $CONFIG_PATH \
+      >>$LOG_DIR/redis.stdout.log 2>>$LOG_DIR/redis.stderr.log
+
+    ;;
+
+  stop)
+    kill_and_wait $PIDFILE 55
+    ;;
+
+  *)
+    echo "Usage: redis_ctl {start|stop}"
+    ;;
+
+esac

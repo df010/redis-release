@@ -1,0 +1,33 @@
+l#!/bin/bash -e
+NAME=$2
+PORT=$3
+LOG_DIR=/var/vcap/store/redis/$NAME
+PIDFILE=/var/vcap/sys/run/redis/$NAME.pid
+DATA_DIR=/var/vcap/store/redis/$NAME
+CONFIG_PATH=/var/vcap/sys/run/redis/$NAME.conf
+
+source /var/vcap/packages/common/utils.sh
+
+case $1 in
+
+  start)
+
+    mkdir -p $LOG_DIR $DATA_DIR
+    chown vcap:vcap $LOG_DIR $DATA_DIR
+    master_port=6379
+    slave_port=8888
+    sed "s/__NAME__/$NAME/g;s/__PORT__/${${NAME}_port}/g" /var/vcap/jobs/redis/config/redis.config |tee $CONFIG_PATH
+    exec chpst -u vcap:vcap /var/vcap/packages/redis/bin/redis-server $CONFIG_PATH \
+      >>$LOG_DIR/redis.stdout.log 2>>$LOG_DIR/redis.stderr.log
+
+    ;;
+
+  stop)
+    kill_and_wait $PIDFILE 55
+    ;;
+
+  *)
+    echo "Usage: redis_ctl {start|stop}"
+    ;;
+
+esac

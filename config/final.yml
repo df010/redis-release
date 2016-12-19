@@ -1,0 +1,6 @@
+---
+final_name: cf-redis
+blobstore:
+  provider: local
+  options:
+    blobstore_path: "/tmp/blobs"
