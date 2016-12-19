@@ -2,4 +2,6 @@ backup
 .dev_builds
 dev_releases
 license*
+*.tar.gz
+*.gem
 
