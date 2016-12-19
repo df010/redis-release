@@ -4,4 +4,4 @@ dev_releases
 license*
 *.tar.gz
 *.gem
-
+*~
