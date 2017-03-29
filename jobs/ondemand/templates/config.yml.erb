@@ -1,0 +1,13 @@
+---
+input_mappings: 
+binding_credentials:
+- name: ip
+  datatype: array
+  value: job[*].ip
+- name: port
+  datatype: string
+  value: 6379
+instance_groups:
+- name: redis
+  templates:
+  - redis
