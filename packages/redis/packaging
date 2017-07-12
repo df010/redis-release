@@ -2,7 +2,7 @@
 set -e
 REDIS_VERSION=3.0.1
 
-tar xvf redis/redis-${REDIS_VERSION}.tar.gz
+tar -xvf redis/redis-${REDIS_VERSION}.tar.gz
 
 cd redis-${REDIS_VERSION}
 make
@@ -15,5 +15,4 @@ cp src/redis-benchmark ${BIN_TARGET}
 cp src/redis-check-aof ${BIN_TARGET}
 cp src/redis-check-dump ${BIN_TARGET}
 cp src/redis-trib.rb ${BIN_TARGET}
-cp src/redis-3.2.1.gem ${BIN_TARGET}
-
+cp ../redis-3.2.1.gem ${BIN_TARGET}
