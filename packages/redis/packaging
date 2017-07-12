@@ -15,4 +15,4 @@ cp src/redis-benchmark ${BIN_TARGET}
 cp src/redis-check-aof ${BIN_TARGET}
 cp src/redis-check-dump ${BIN_TARGET}
 cp src/redis-trib.rb ${BIN_TARGET}
-cp ../redis-3.2.1.gem ${BIN_TARGET}
+cp ../redis/redis-3.2.1.gem ${BIN_TARGET}

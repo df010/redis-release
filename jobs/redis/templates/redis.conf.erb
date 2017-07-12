@@ -11,12 +11,12 @@
 %>
 daemonize yes
 cluster-enabled yes
-cluster-config-file /var/vcap/store/redis/__NAME__/cluster.conf
+cluster-config-file /var/vcap/store/redis/cluster.conf
 cluster-node-timeout 5000
-pidfile   /var/vcap/sys/run/redis/__NAME__.pid
-dir /var/vcap/store/redis/__NAME__
-logfile /var/vcap/store/redis/__NAME__/__NAME__.log
-port __PORT__
+pidfile   /var/vcap/sys/run/redis/redis.pid
+dir /var/vcap/store/redis/
+logfile /var/vcap/sys/log/redis/redis.log
+port <%=p("redis.port")%>
 timeout 0
 tcp-keepalive 0
 loglevel notice

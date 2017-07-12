@@ -1,17 +1,5 @@
 check process redis
-  with pidfile /var/vcap/sys/run/redis/instance1.pid
+  with pidfile /var/vcap/sys/run/redis/redis.pid
   start program "/var/vcap/jobs/redis/bin/redis_ctl start"
   stop program "/var/vcap/jobs/redis/bin/redis_ctl stop"
   group vcap
-
-#check process redis-slave
-#  with pidfile /var/vcap/sys/run/redis/slave.pid
-#  start program "/var/vcap/jobs/redis/bin/redis_ctl start slave 8080"
-#  stop program "/var/vcap/jobs/redis/bin/redis_ctl stop slave"
-#  group vcap
-
-#check process cluster
-#  with pidfile /var/vcap/sys/run/redis/cluster.pid
-#  start program "/var/vcap/jobs/redis/bin/redis_ctl start slave 8080"
-#  stop program "/var/vcap/jobs/redis/bin/redis_ctl stop slave"
-#  group vcap
